@@ -113,7 +113,8 @@ public class GameLogger : MonoBehaviour
             return;
         }
         
-        _instance = this;
+        // Cache device info once at startup
+        cachedDeviceInfo = BuildDeviceInfo();
         DontDestroyOnLoad(gameObject);
         LoadCachedLogs();
     }
@@ -315,7 +316,7 @@ public class GameLogger : MonoBehaviour
                 continue;
             }
 
-            logData["device"] = GetDeviceInfo();
+            logData["device"] = cachedDeviceInfo;
             string jsonData = JsonConvert.SerializeObject(logData);
 
             using (UnityWebRequest request = new UnityWebRequest(logServerUrl, "POST"))
@@ -361,7 +362,7 @@ public class GameLogger : MonoBehaviour
 #endif
     }
 
-    private Dictionary<string, object> GetDeviceInfo()
+    private Dictionary<string, object> BuildDeviceInfo()
     {
         var resolution = Screen.currentResolution;
         
