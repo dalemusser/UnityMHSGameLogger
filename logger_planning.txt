@@ -56,10 +56,9 @@ JSON:
   "game": "mhs",
   "playerId": playerId,
   "timestamp": timestamp,
-  "eventType": "DialogueEvent",
+  "eventType": "DialogueNodeEvent",
   "eventKey": "DialogueNodeEvent:<conversationId>:<nodeId>",
   "data": {
-    "dialogueEventType": "DialogueNodeEvent",
     "conversationId": conversationId,
     "nodeId": nodeId
   },
@@ -240,8 +239,12 @@ JSON:
 
 5. 'ArgumentationNodeEvent'
 
+actionType options:
+ArgumentationNodeAdd
+ArgumentationNodeRemove
+
 Unity C# function:
-LogArgumentationNodeEvent(string actionType, string title, string description, string nodeName)
+LogArgumentationNodeEvent(string actionType, string title, string nodeName)
 
 JSON:
 {

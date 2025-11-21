@@ -1,0 +1,15 @@
+1. 'DialogueNodeEvent' - change in Event Type
+
+ 4. 'ArgumentationEvent'
+
+eventType options: 
+"ArgumentationSessionOpen"
+"ArgumentationSessionClose"
+
+5. 'ArgumentationNodeEvent'
+
+actionType options:
+ArgumentationNodeAdd
+ArgumentationNodeRemove
+LogArgumentationNodeEvent(string actionType, string title, string nodeName)
+
