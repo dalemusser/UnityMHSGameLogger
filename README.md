@@ -1,5 +1,7 @@
 # UnityMHSGameLogger
 
+For a detailed project overview, see [Project Summary](./ProjectSummary.md)
+
 ## Unity game logger for the game Mission HydroSci
 
 Here's how to integrate it as a proper Unity singleton:
