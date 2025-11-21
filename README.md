@@ -2,7 +2,7 @@
 
 [Project Summary](./ProjectSummary.md) - detailed project overview
 
-[Quick Referemce](./QuickReference.md) - quick reference for logging functions
+[Quick Reference](./QuickReference.md) - quick reference for logging functions
 
 ## Unity game logger for the game Mission HydroSci
 
