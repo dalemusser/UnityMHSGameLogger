@@ -4,6 +4,8 @@
 
 [Quick Reference](./QuickReference.md) - quick reference for logging functions
 
+[Analytics Reference](https://github.com/SociallyCompute/strata-dashboard/blob/main/unique-events-JSON-sep-version.ipynb) - source document for planning
+
 ## Unity game logger for the game Mission HydroSci
 
 Here's how to integrate it as a proper Unity singleton:
