@@ -1,0 +1,590 @@
+There are eight event types:
+1. 'DialogueNodeEvent'
+2. 'DialogueEvent'
+3. 'Topographic Map Event'
+4. 'ArgumentationEvent'
+5. 'ArgumentationNodeEvent'
+6. 'ArgumentationToolEvent'
+7. 'PlayerPositionEvent'
+8. 'QuestEvent'
+
+Notes for all objects:
+game = "mhs"
+
+timestamp = current datetime on client computer in UTC (string)
+
+playerId = call Unity app function to get playerId (string)
+
+device.platform = "UnityWebGL"
+
+int processorCount = SystemInfo.processorCount;
+device.processors = processorCount
+
+int systemMemorySize = SystemInfo.systemMemorySize;
+device.memory = systemMemorySize
+
+string graphicsDeviceName = SystemInfo.graphicsDeviceName;
+device.gdName = graphicsDeviceName
+
+int graphicsMemorySize = SystemInfo.graphicsMemorySize;
+device.gMemory = graphicsMemorySize
+
+GraphicsDeviceType gdApiType = SystemInfo.graphicsDeviceType.ToString();
+device.gdApiType = gdApiType
+
+Resolution resolution = Screen.currentResolution;
+device.resolution = {"width": resolution.width (int), "height": resolution.height (int), "refreshRate": resolution.refreshRate (int)}
+
+float dpi = Screen.dpi;
+device.dpi = dpi
+
+string osName = SystemInfo.operatingSystem;
+device.os = osName
+
+
+1. 'DialogueNodeEvent'
+
+Unity C# function:
+LogDialogueNodeEvent(int conversationId, int nodeId)
+
+eventType = "DialogueEvent"
+dialogueEventType = "DialogueNodeEvent"
+eventKey is combination of dialogueEventType:conversationId:nodeId (as string)
+
+JSON:
+{
+  "game": "mhs",
+  "playerId": playerId,
+  "timestamp": timestamp,
+  "eventType": "DialogueEvent",
+  "eventKey": "DialogueNodeEvent:<conversationId>:<nodeId>",
+  "data": {
+    "dialogueEventType": "DialogueNodeEvent",
+    "conversationId": conversationId,
+    "nodeId": nodeId
+  },
+  "device": {
+    "platform": "UnityWebGL",
+    "processors": processorCount,
+    "memory": systemMemorySize,
+    "gdName": graphicsDeviceName,
+    "gMemory": graphicsMemorySize,
+    "gdApiType": gdApiType,
+    "resolution": {
+    	"width" : resolution.width
+    	"height" : resolution.height
+    	"refreshRate" : resolution.refreshRate
+    },
+    "dpi": dpi,
+    "os": osName
+  }
+}
+
+
+2. 'DialogueEvent'
+dialogEvenType options:
+"DialogueStartEvent"
+"DialogueFinishEvent"
+
+Unity C# function:
+LogDialogueEvent(string dialogueEventType, int conversationId)
+
+eventType = "DialogueEvent"
+dialogEventType can be "DialogueStartEvent" or "DialogueFinishEvent"
+
+JSON:
+{
+  "game": "mhs",
+  "playerId": playerId,
+  "timestamp": timestamp,
+  "eventType": "DialogueEvent",
+  "data": {
+    "dialogueEventType": dialogueEventType,
+    "conversationId": conversationId,
+  },
+  "device": {
+    "platform": "UnityWebGL",
+    "processors": processorCount,
+    "memory": systemMemorySize,
+    "gdName": graphicsDeviceName,
+    "gMemory": graphicsMemorySize,
+    "gdApiType": gdApiType,
+    "resolution": {
+    	"width" : resolution.width
+    	"height" : resolution.height
+    	"refreshRate" : resolution.refreshRate
+    },
+    "dpi": dpi,
+    "os": osName
+  }
+}
+
+
+3. 'Topographic Map Event'
+
+eventType = "TopoMapEvent"
+featureUsed options:
+"Map"
+"Waypoint"
+
+"Map" actionType options:
+"MapOpenEvent"
+"MapCloseEvent"
+
+"Waypoint" actionType options:
+"DragStart"
+"DragEnd"
+"Waypoints" have location { location.x, location.y, location.z }
+
+Unity C# function:
+LogTopoMapEvent(string featureUsed, string actionType, Location: location)
+if featureUsed == "Map" then location = null (location only provided for feature = "Waypoint")
+
+feature = "Map" JSON:
+{
+  "game": "mhs",
+  "playerId": playerId,
+  "timestamp": timestamp,
+  "eventType": "TopographicMapEvent",
+  "data": {
+    "featureUsed": featureUsed,
+    "actionType": actionType,
+  },
+  "device": {
+    "platform": "UnityWebGL",
+    "processors": processorCount,
+    "memory": systemMemorySize,
+    "gdName": graphicsDeviceName,
+    "gMemory": graphicsMemorySize,
+    "gdApiType": gdApiType,
+    "resolution": {
+    	"width" : resolution.width
+    	"height" : resolution.height
+    	"refreshRate" : resolution.refreshRate
+    },
+    "dpi": dpi,
+    "os": osName
+  }
+}
+
+feature = "Waypoint" JSON
+{
+  "game": "mhs",
+  "playerId": playerId,
+  "timestamp": timestamp,
+  "eventType": "TopographicMapEvent",
+  "data": {
+    "featureUsed": featureUsed,
+    "actionType": actionType,
+    "location" : {
+    	"x": location.x,
+    	"y": location.y,
+    	"z": location.z
+    }
+  },
+  "device": {
+    "platform": "UnityWebGL",
+    "processors": processorCount,
+    "memory": systemMemorySize,
+    "gdName": graphicsDeviceName,
+    "gMemory": graphicsMemorySize,
+    "gdApiType": gdApiType,
+    "resolution": {
+    	"width" : resolution.width
+    	"height" : resolution.height
+    	"refreshRate" : resolution.refreshRate
+    },
+    "dpi": dpi,
+    "os": osName
+  }
+}
+
+Therefore, only include data.location if location != null
+
+4. 'ArgumentationEvent'
+
+eventType options: 
+"ArgumentationSessionOpen"
+"ArgumentationSessionClose"
+
+Unity C# function:
+LogArgumentationEvent(string eventType, string title, string description)
+
+JSON:
+{
+  "game": "mhs",
+  "playerId": playerId,
+  "timestamp": timestamp,
+  "eventType": "ArgumentationEvent",
+  "data": {
+    "eventType": eventType,
+    "title": title,
+    "description": description
+  },
+  "device": {
+    "platform": "UnityWebGL",
+    "processors": processorCount,
+    "memory": systemMemorySize,
+    "gdName": graphicsDeviceName,
+    "gMemory": graphicsMemorySize,
+    "gdApiType": gdApiType,
+    "resolution": {
+    	"width" : resolution.width
+    	"height" : resolution.height
+    	"refreshRate" : resolution.refreshRate
+    },
+    "dpi": dpi,
+    "os": osName
+  }
+}
+
+5. 'ArgumentationNodeEvent'
+
+Unity C# function:
+LogArgumentationNodeEvent(string actionType, string title, string description, string nodeName)
+
+JSON:
+{
+  "game": "mhs",
+  "playerId": playerId,
+  "timestamp": timestamp,
+  "eventType": "ArgumentationNodeEvent",
+  "data": {
+    "actionType": actionType,
+    "title": title,
+    "nodeName": nodeName
+  },
+  "device": {
+    "platform": "UnityWebGL",
+    "processors": processorCount,
+    "memory": systemMemorySize,
+    "gdName": graphicsDeviceName,
+    "gMemory": graphicsMemorySize,
+    "gdApiType": gdApiType,
+    "resolution": {
+    	"width" : resolution.width
+    	"height" : resolution.height
+    	"refreshRate" : resolution.refreshRate
+    },
+    "dpi": dpi,
+    "os": osName
+  }
+}
+
+6. 'ArgumentationToolEvent'
+
+Unity C# function:
+LogArgumentationToolEvent(string actionType, title, toolName, toolState)
+
+actionType options:
+"ArgumentationToolOpen"
+"ArgumentationToolClose"
+
+JSON:
+{
+  "game": "mhs",
+  "playerId": playerId,
+  "timestamp": timestamp,
+  "eventType": "ArgumentationToolEvent",
+  "data": {
+    "actionType": actionType,
+    "title": title,
+    "tool": {
+      "name": toolName,
+      "state": toolState
+    }
+  },
+  "device": {
+    "platform": "UnityWebGL",
+    "processors": processorCount,
+    "memory": systemMemorySize,
+    "gdName": graphicsDeviceName,
+    "gMemory": graphicsMemorySize,
+    "gdApiType": gdApiType,
+    "resolution": {
+    	"width" : resolution.width
+    	"height" : resolution.height
+    	"refreshRate" : resolution.refreshRate
+    },
+    "dpi": dpi,
+    "os": osName
+  }
+}
+
+7. 'PlayerPositionEvent'
+
+// Find by name
+GameObject enemy = GameObject.Find("Enemy");
+
+// Find by tag
+GameObject player = GameObject.FindWithTag("Player");
+
+// Find by type
+PlayerController controller = FindObjectOfType<PlayerController>();
+Vector3 position = controller.transform.position;
+
+A Vector3 is a struct containing three float values for x, y, and z:
+
+Unit C# function:
+LogPlayerPositionEvent(Vector3 position)
+
+JSON:
+{
+  "game": "mhs",
+  "playerId": playerId,
+  "timestamp": timestamp,
+  "eventType": "PlayerPositionEvent",
+  "data": {
+    "position": { "x": position.x, "y": position.y, "z": position.z }
+  },
+  "device": {
+    "platform": "UnityWebGL",
+    "processors": processorCount,
+    "memory": systemMemorySize,
+    "gdName": graphicsDeviceName,
+    "gMemory": graphicsMemorySize,
+    "gdApiType": gdApiType,
+    "resolution": {
+    	"width" : resolution.width
+    	"height" : resolution.height
+    	"refreshRate" : resolution.refreshRate
+    },
+    "dpi": dpi,
+    "os": osName
+  }
+}
+
+8. 'QuestEvent'
+
+questEventType options:
+"QuestActiveEvent"
+"QuestFinishEvent"
+
+Unity C# function:
+LogQuestEvent(string questEventType, int questId, string questName, string: questSuccessOrFailure)
+
+if questSuccessOrFailure == null do not included in data
+only "QuestFinishEvent" has questSuccessOrFailure
+
+JSON:
+{
+ "game": "mhs",
+  "playerId": playerId,
+  "timestamp": timestamp,
+  "eventType": "QuestEvent",
+  "eventKey": "<questEventType>:<questId>",
+  "data": {
+    "questEventType": questEventType,
+    "questId": questId,
+    "questName": questName,
+    "questSF": questSuccessOrFailure
+  },
+  "device": {
+    "platform": "UnityWebGL",
+    "processors": processorCount,
+    "memory": systemMemorySize,
+    "gdName": graphicsDeviceName,
+    "gMemory": graphicsMemorySize,
+    "gdApiType": gdApiType,
+    "resolution": {
+    	"width" : resolution.width
+    	"height" : resolution.height
+    	"refreshRate" : resolution.refreshRate
+    },
+    "dpi": dpi,
+    "os": osName
+  }
+}
+
+
+---------------------------
+
+private string GetPlatform()
+{
+#if UNITY_WEBGL
+    return "UnityWebGL";
+#else
+    return "Standalone";
+#endif
+}
+
+private Dictionary<string, object> GetDeviceInfo()
+{
+    var resolution = Screen.currentResolution;
+    
+    return new Dictionary<string, object>
+    {
+        { "platform", GetPlatform() },
+        { "processors", SystemInfo.processorCount },
+        { "memory", SystemInfo.systemMemorySize },
+        { "gdName", SystemInfo.graphicsDeviceName },
+        { "gMemory", SystemInfo.graphicsMemorySize },
+        { "gdApiType", SystemInfo.graphicsDeviceType.ToString() },
+        { "resolution", new Dictionary<string, object>
+            {
+                { "width", resolution.width },
+                { "height", resolution.height },
+                { "refreshRate", resolution.refreshRate }
+            }
+        },
+        { "dpi", Screen.dpi },
+        { "os", SystemInfo.operatingSystem }
+    };
+}
+
+public void LogEvent(string eventType, Dictionary<string, object> data, string eventKey = null)
+{
+    var deviceInfo = GetDeviceInfo();
+    
+    var json = new Dictionary<string, object>
+    {
+        { "game", "mhs" },
+        { "playerId", GetPlayerId() },
+        { "timestamp", DateTime.UtcNow.ToString("o") },
+        { "eventType", eventType },
+        { "data", data },
+        { "device", deviceInfo }
+    };
+    
+    if (eventKey != null)
+        json["eventKey"] = eventKey;
+    
+    SendToServer(JsonConvert.SerializeObject(json));
+}
+
+// 1. DialogueNodeEvent
+public void LogDialogueNodeEvent(int conversationId, int nodeId)
+{
+    var data = new Dictionary<string, object>
+    {
+        { "dialogueEventType", "DialogueNodeEvent" },
+        { "conversationId", conversationId },
+        { "nodeId", nodeId }
+    };
+    
+    string eventKey = $"DialogueNodeEvent:{conversationId}:{nodeId}";
+    LogEvent("DialogueEvent", data, eventKey);
+}
+
+// 2. DialogueEvent
+public void LogDialogueEvent(string dialogueEventType, int conversationId)
+{
+    var data = new Dictionary<string, object>
+    {
+        { "dialogueEventType", dialogueEventType },
+        { "conversationId", conversationId }
+    };
+    
+    LogEvent("DialogueEvent", data);
+}
+
+// 3. Topographic Map Event
+public void LogTopoMapEvent(string featureUsed, string actionType, Vector3 location = null)
+{
+    var data = new Dictionary<string, object>
+    {
+        { "featureUsed", featureUsed },
+        { "actionType", actionType }
+    };
+    
+    if (location != null)
+    {
+        data["location"] = new Dictionary<string, object>
+        {
+            { "x", location.x },
+            { "y", location.y },
+            { "z", location.z }
+        };
+    }
+    
+    LogEvent("TopographicMapEvent", data);
+}
+
+// 4. ArgumentationEvent
+public void LogArgumentationEvent(string eventType, string title, string description)
+{
+    var data = new Dictionary<string, object>
+    {
+        { "eventType", eventType },
+        { "title", title },
+        { "description", description }
+    };
+    
+    LogEvent("ArgumentationEvent", data);
+}
+
+// 5. ArgumentationNodeEvent
+public void LogArgumentationNodeEvent(string actionType, string title, string description, string nodeName)
+{
+    var data = new Dictionary<string, object>
+    {
+        { "actionType", actionType },
+        { "title", title },
+        { "nodeName", nodeName }
+    };
+    
+    LogEvent("ArgumentationNodeEvent", data);
+}
+
+// 6. ArgumentationToolEvent
+public void LogArgumentationToolEvent(string actionType, string title, string toolName, string toolState)
+{
+    var data = new Dictionary<string, object>
+    {
+        { "actionType", actionType },
+        { "title", title },
+        { "tool", new Dictionary<string, object>
+            {
+                { "name", toolName },
+                { "state", toolState }
+            }
+        }
+    };
+    
+    LogEvent("ArgumentationToolEvent", data);
+}
+
+// 7. PlayerPositionEvent
+public void LogPlayerPositionEvent(Vector3 position)
+{
+    var data = new Dictionary<string, object>
+    {
+        { "position", new Dictionary<string, object>
+            {
+                { "x", position.x },
+                { "y", position.y },
+                { "z", position.z }
+            }
+        }
+    };
+    
+    LogEvent("PlayerPositionEvent", data);
+}
+
+// 8. QuestEvent
+public void LogQuestEvent(string questEventType, int questId, string questName, string questSuccessOrFailure = null)
+{
+    var data = new Dictionary<string, object>
+    {
+        { "questEventType", questEventType },
+        { "questId", questId },
+        { "questName", questName }
+    };
+    
+    if (questSuccessOrFailure != null)
+    {
+        data["questSF"] = questSuccessOrFailure;
+    }
+    
+    string eventKey = $"{questEventType}:{questId}";
+    LogEvent("QuestEvent", data, eventKey);
+}
+
+
+
+
+
+
+
+
+
