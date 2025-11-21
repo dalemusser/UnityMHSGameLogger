@@ -1,6 +1,8 @@
 # UnityMHSGameLogger
 
-For a detailed project overview, see [Project Summary](./ProjectSummary.md)
+[Project Summary](./ProjectSummary.md) - detailed project overview
+
+[Quick Referemce](./QuickReference.md) - quick reference for logging functions
 
 ## Unity game logger for the game Mission HydroSci
 
