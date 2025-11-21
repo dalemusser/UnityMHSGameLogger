@@ -82,6 +82,7 @@ public class GameLogger : MonoBehaviour
     private Queue<Dictionary<string, object>> logQueue = new Queue<Dictionary<string, object>>();
     private bool isSendingLogs = false;
     private object queueLock = new object();
+    private Dictionary<string, object> cachedDeviceInfo;
     
     private const string logCacheFile = "game_logs_cache.json";
     private const string logServerUrl = "<LOG_SERVER_URL_HERE>";
