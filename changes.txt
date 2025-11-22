@@ -13,3 +13,13 @@ ArgumentationNodeAdd
 ArgumentationNodeRemove
 LogArgumentationNodeEvent(string actionType, string title, string nodeName)
 
+5. LogArgumentationNodeEvent
+public void LogArgumentationNodeEvent(string actionType, string title, string description, string nodeName)
+remove description
+
+Unit 3 count:
+5 progress points
+
+Unit4:
+6 points
+

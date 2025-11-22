@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Example 1: Dialogue Events
+    /// Example 1: Dialogue Node Event
     /// </summary>
     public void DialogueExamples()
     {
@@ -44,6 +44,10 @@ public class PlayerController : MonoBehaviour
             conversationId: 1,
             nodeId: 5
         );
+
+    /// <summary>
+    /// Example 2: Dialogue Event
+    /// </summary>
 
         // Log when dialogue starts
         GameLogger.Instance.LogDialogueEvent(
@@ -59,7 +63,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Example 2: Topographic Map Events
+    /// Example 3: Topographic Map Events
     /// </summary>
     public void TopoMapExamples()
     {
@@ -91,7 +95,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Example 3: Argumentation Session Events
+    /// Example 4: Argumentation Session Events
     /// </summary>
     public void ArgumentationSessionExamples()
     {
@@ -111,45 +115,34 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Example 4: Argumentation Node Events
+    /// Example 5: Argumentation Node Events
     /// </summary>
     public void ArgumentationNodeExamples()
     {
-        // Log when creating a claim node
+        // Log when adding a claim node
         GameLogger.Instance.LogArgumentationNodeEvent(
-            actionType: "CreateNode",
+            actionType: "ArgumentationNodeAdd",
             title: "Climate Change Debate",
-            description: "Player created a new claim",
             nodeName: "claim_fossil_fuels"
         );
 
         // Log when adding evidence to a node
         GameLogger.Instance.LogArgumentationNodeEvent(
-            actionType: "AddEvidence",
+            actionType: "ArgumentationNodeAdd",
             title: "Climate Change Debate",
-            description: "Player added supporting evidence",
-            nodeName: "claim_fossil_fuels"
+            nodeName: "evidence_carbon_emissions"
         );
 
-        // Log when modifying a node
+        // Log when removing a node
         GameLogger.Instance.LogArgumentationNodeEvent(
-            actionType: "ModifyNode",
+            actionType: "ArgumentationNodeRemove",
             title: "Climate Change Debate",
-            description: "Player modified the argument",
-            nodeName: "claim_fossil_fuels"
-        );
-
-        // Log when deleting a node
-        GameLogger.Instance.LogArgumentationNodeEvent(
-            actionType: "DeleteNode",
-            title: "Climate Change Debate",
-            description: "Player deleted a node",
             nodeName: "claim_fossil_fuels"
         );
     }
 
     /// <summary>
-    /// Example 5: Argumentation Tool Events
+    /// Example 6: Argumentation Tool Events
     /// </summary>
     public void ArgumentationToolExamples()
     {
@@ -187,7 +180,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Example 6: Player Position Events
+    /// Example 7: Player Position Events
     /// </summary>
     public void LogPlayerPositionExamples()
     {
@@ -203,7 +196,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Example 7: Quest Events
+    /// Example 8: Quest Events
     /// </summary>
     public void QuestExamples()
     {

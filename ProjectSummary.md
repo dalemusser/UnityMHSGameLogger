@@ -63,8 +63,8 @@ Logs topographic map interactions.
 ### 4. LogArgumentationEvent(string eventType, string title, string description)
 Logs argumentation session lifecycle. Options: `"ArgumentationSessionOpen"` | `"ArgumentationSessionClose"`
 
-### 5. LogArgumentationNodeEvent(string actionType, string title, string description, string nodeName)
-Logs interactions with individual argument nodes (create, modify, delete, etc.)
+### 5. LogArgumentationNodeEvent(string actionType, string title, string nodeName)
+Logs argument node events. Options: `"ArgumentationNodeAdd"` | `"ArgumentationNodeRemove"`
 
 ### 6. LogArgumentationToolEvent(string actionType, string title, string toolName, string toolState)
 Logs tool state changes. Options: `"ArgumentationToolOpen"` | `"ArgumentationToolClose"`

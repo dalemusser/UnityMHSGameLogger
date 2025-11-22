@@ -39,9 +39,9 @@ public void LogArgumentationEvent(string eventType, string title, string descrip
 
 ## 5. LogArgumentationNodeEvent
 ```csharp
-public void LogArgumentationNodeEvent(string actionType, string title, string description, string nodeName)
+public void LogArgumentationNodeEvent(string actionType, string title, string nodeName)
 ```
-
+**actionType:** `"ArgumentationNodeAdd"` | `"ArgumentationNodeRemove"`
 ---
 
 ## 6. LogArgumentationToolEvent

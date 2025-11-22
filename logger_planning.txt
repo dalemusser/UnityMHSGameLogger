@@ -41,15 +41,13 @@ device.dpi = dpi
 string osName = SystemInfo.operatingSystem;
 device.os = osName
 
-
 1. 'DialogueNodeEvent'
 
 Unity C# function:
 LogDialogueNodeEvent(int conversationId, int nodeId)
 
-eventType = "DialogueEvent"
-dialogueEventType = "DialogueNodeEvent"
-eventKey is combination of dialogueEventType:conversationId:nodeId (as string)
+eventType = "DialogueNodeEvent"
+eventKey is combination of eventType:conversationId:nodeId (as string)
 
 JSON:
 {
@@ -78,7 +76,6 @@ JSON:
     "os": osName
   }
 }
-
 
 2. 'DialogueEvent'
 dialogEvenType options:
@@ -117,7 +114,6 @@ JSON:
     "os": osName
   }
 }
-
 
 3. 'Topographic Map Event'
 

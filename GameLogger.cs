@@ -169,13 +169,12 @@ public class GameLogger : MonoBehaviour
 	{
 		var data = new Dictionary<string, object>
 		{
-			{ "dialogueEventType", "DialogueNodeEvent" },
 			{ "conversationId", conversationId },
 			{ "nodeId", nodeId }
 		};
 		
 		string eventKey = $"DialogueNodeEvent:{conversationId}:{nodeId}";
-		LogEvent("DialogueEvent", data, eventKey);
+		LogEvent("DialogueNodeEvent", data, eventKey);
 	}
 	
 	// 2. DialogueEvent
@@ -191,27 +190,27 @@ public class GameLogger : MonoBehaviour
 	}
 	
 	// 3. Topographic Map Event
-	public void LogTopoMapEvent(string featureUsed, string actionType, Vector3 location = null)
-	{
-		var data = new Dictionary<string, object>
-		{
-			{ "featureUsed", featureUsed },
-			{ "actionType", actionType }
-		};
-		
-		if (location != null)
-		{
-			data["location"] = new Dictionary<string, object>
-			{
-				{ "x", location.x },
-				{ "y", location.y },
-				{ "z", location.z }
-			};
-		}
-		
-		LogEvent("TopographicMapEvent", data);
-	}
-	
+    public void LogTopoMapEvent(string featureUsed, string actionType, Vector3 location = null)
+    {
+        var data = new Dictionary<string, object>
+        {
+            { "featureUsed", featureUsed },
+            { "actionType", actionType }
+        };
+        
+        if (location != null)
+        {
+            data["location"] = new Dictionary<string, object>
+            {
+                { "x", SafeFloat(location.x) },
+                { "y", SafeFloat(location.y) },
+                { "z", SafeFloat(location.z) }
+            };
+        }
+        
+        LogEvent("TopographicMapEvent", data);
+    }
+        
 	// 4. ArgumentationEvent
 	public void LogArgumentationEvent(string eventType, string title, string description)
 	{
@@ -226,7 +225,7 @@ public class GameLogger : MonoBehaviour
 	}
 	
 	// 5. ArgumentationNodeEvent
-	public void LogArgumentationNodeEvent(string actionType, string title, string description, string nodeName)
+	public void LogArgumentationNodeEvent(string actionType, string title, string nodeName)
 	{
 		var data = new Dictionary<string, object>
 		{
@@ -255,23 +254,23 @@ public class GameLogger : MonoBehaviour
 		
 		LogEvent("ArgumentationToolEvent", data);
 	}
-	
+    
 	// 7. PlayerPositionEvent
-	public void LogPlayerPositionEvent(Vector3 position)
-	{
-		var data = new Dictionary<string, object>
-		{
-			{ "position", new Dictionary<string, object>
-				{
-					{ "x", position.x },
-					{ "y", position.y },
-					{ "z", position.z }
-				}
-			}
-		};
-		
-		LogEvent("PlayerPositionEvent", data);
-	}
+    public void LogPlayerPositionEvent(Vector3 position)
+    {
+        var data = new Dictionary<string, object>
+        {
+            { "position", new Dictionary<string, object>
+                {
+                    { "x", SafeFloat(position.x) },
+                    { "y", SafeFloat(position.y) },
+                    { "z", SafeFloat(position.z) }
+                }
+            }
+        };
+        
+        LogEvent("PlayerPositionEvent", data);
+    }
 	
 	// 8. QuestEvent
 	public void LogQuestEvent(string questEventType, int questId, string questName, string questSuccessOrFailure = null)
@@ -363,6 +362,13 @@ public class GameLogger : MonoBehaviour
 #endif
     }
 
+    private float SafeFloat(float value)
+    {
+        if (float.IsNaN(value) || float.IsInfinity(value))
+            return 0f;
+        return value;
+    }
+
     private Dictionary<string, object> BuildDeviceInfo()
     {
         var resolution = Screen.currentResolution;
@@ -382,7 +388,7 @@ public class GameLogger : MonoBehaviour
                     { "refreshRate", resolution.refreshRate }
                 }
             },
-            { "dpi", Screen.dpi },
+            { "dpi", SafeFloat(Screen.dpi) },
             { "os", SystemInfo.operatingSystem }
         };
     }
